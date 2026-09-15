@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Long Forge — Interactive Chronicle of Arms</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #0B090A;
@@ -15,6 +15,10 @@
     --accent: #F59E0B;
     --accent-glow: rgba(245, 158, 11, 0.4);
     
+    /* Font System Definition */
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+
     /* Dynamic Era Color Variables */
     --era1-color: #F59E0B;
     --era2-color: #EF4444;
@@ -28,12 +32,29 @@
   body {
     background: var(--ink);
     color: var(--parchment);
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 0.03em; }
-  .mono { font-family: 'IBM Plex Mono', monospace; }
+  /* Structural Typography Hierarchy */
+  h1, h2, h3 { 
+    font-family: var(--font-heading); 
+    letter-spacing: 0.04em; 
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* Micro-typography Label System */
+  .meta-label {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
 
   /* ===== Canvas & FX ===== */
   #ember-canvas {
@@ -66,7 +87,7 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(11, 9, 10, 0.85);
+    background: rgba(11, 9, 10, 0.88);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding: 16px 8vw 16px 90px;
@@ -76,21 +97,19 @@
     align-items: center;
   }
   .filter-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
     color: var(--steel);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
     margin-right: 8px;
   }
   .filter-btn {
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.15);
     color: var(--parchment);
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 20px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     cursor: pointer;
     transition: all 0.3s ease;
   }
@@ -116,9 +135,13 @@
     padding: 0 8vw 0 90px;
     z-index: 1;
   }
+  .hero-eyebrow {
+    color: var(--era1-color);
+    margin-bottom: 12px;
+  }
   .hero-inner h1 {
     font-size: clamp(48px, 7vw, 88px);
-    line-height: 1;
+    line-height: 0.95;
     background: linear-gradient(135deg, #FFF 30%, var(--steel));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -132,7 +155,7 @@
   .hero-sub {
     margin-top: 24px;
     max-width: 520px;
-    font-size: 17px;
+    font-size: 1.1rem;
     line-height: 1.7;
     color: var(--steel);
   }
@@ -151,17 +174,16 @@
   .era[data-era="4"] { --era-theme: var(--era5-color); }
 
   .era-range {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
     color: var(--era-theme);
     margin-bottom: 8px;
-    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+    text-shadow: 0 0 10px rgba(255,255,255,0.15);
   }
   .era h2 {
-    font-size: clamp(28px, 3.5vw, 42px);
+    font-size: clamp(24px, 3vw, 38px);
     color: #FFF;
     border-left: 3px solid var(--era-theme);
     padding-left: 16px;
+    line-height: 1.2;
   }
 
   /* ===== Specimens Grid ===== */
@@ -219,28 +241,23 @@
     transform: scale(1.1) rotate(-4deg);
   }
   .specimen-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
     color: var(--steel);
     margin-bottom: 6px;
   }
   .specimen h3 {
-    font-size: 20px;
+    font-size: 1.25rem;
     color: #FFF;
     margin-bottom: 8px;
   }
   .specimen p {
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 0.92rem;
+    line-height: 1.65;
     color: var(--steel);
   }
   .specimen-mat {
     margin-top: 16px;
     padding-top: 12px;
     border-top: 1px solid rgba(255,255,255,0.1);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
     color: var(--era-theme);
   }
 
@@ -258,7 +275,7 @@
 
 <!-- Filter Control Bar -->
 <div id="filter-bar">
-  <span class="filter-label">Filter Category:</span>
+  <span class="meta-label filter-label">Filter Category:</span>
   <button class="filter-btn active" data-filter="all">All Items</button>
   <button class="filter-btn" data-filter="sword">Swords</button>
   <button class="filter-btn" data-filter="armor">Armor</button>
@@ -267,7 +284,7 @@
 
 <section id="hero">
   <div class="hero-inner">
-    <div class="mono" style="color:var(--era1-color); margin-bottom:12px;">DYNAMIC VAULT · 900 BC – 1600 AD</div>
+    <div class="meta-label hero-eyebrow">Dynamic Vault · 900 BC – 1600 AD</div>
     <h1>The Long<br><em>Forge</em></h1>
     <p class="hero-sub">Explore twenty-five centuries of metallurgy. Filter by arms category or scroll through distinct eras of combat evolution.</p>
   </div>
@@ -277,165 +294,165 @@
 
   <!-- ERA 1 -->
   <section class="era" data-era="0">
-    <div class="era-range">I · 900 – 500 BC</div>
+    <div class="meta-label era-range">I · 900 – 500 BC</div>
     <h2>Iron Age Levant &amp; Mediterranean</h2>
     <div class="specimens">
       <div class="specimen" data-type="sword">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L27 10 L26 34 L24 40 L22 34 L21 10 Z"/><path d="M18 40 L30 40 L28 44 L20 44 Z"/></svg>
         </div>
-        <div class="specimen-tag">LEVANT · SWORD</div>
+        <div class="meta-label specimen-tag">Levant · Sword</div>
         <h3>Naue II Sword</h3>
         <p>A flanged hilt cast in one piece with the blade, carried by sea traders and mercenaries across early trade routes.</p>
-        <div class="specimen-mat">BRONZE / EARLY IRON · 60CM</div>
+        <div class="meta-label specimen-mat">Bronze / Early Iron · 60cm</div>
       </div>
 
       <div class="specimen" data-type="polearm">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 2 L30 16 L18 16 Z"/><line x1="24" y1="16" x2="24" y2="46"/></svg>
         </div>
-        <div class="specimen-tag">ASSYRIA · SPEAR</div>
+        <div class="meta-label specimen-tag">Assyria · Spear</div>
         <h3>Assyrian Spearhead</h3>
         <p>Mass-produced in state workshops for standing armies, forming formidable shield-wall infantry formations.</p>
-        <div class="specimen-mat">WROUGHT IRON · 28CM HEAD</div>
+        <div class="meta-label specimen-mat">Wrought Iron · 28cm Head</div>
       </div>
 
       <div class="specimen" data-type="armor">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="10" width="6" height="6"/><rect x="18" y="10" width="6" height="6"/><rect x="26" y="10" width="6" height="6"/><rect x="14" y="18" width="6" height="6"/><rect x="22" y="18" width="6" height="6"/></svg>
         </div>
-        <div class="specimen-tag">NEAR EAST · ARMOR</div>
+        <div class="meta-label specimen-tag">Near East · Armor</div>
         <h3>Lamellar Cuirass</h3>
         <p>Overlapping plates of bronze or hardened leather laced into flexible, protective rows.</p>
-        <div class="specimen-mat">BRONZE / LEATHER</div>
+        <div class="meta-label specimen-mat">Bronze / Leather</div>
       </div>
     </div>
   </section>
 
   <!-- ERA 2 -->
   <section class="era" data-era="1">
-    <div class="era-range">II · 500 BC – 500 AD</div>
+    <div class="meta-label era-range">II · 500 BC – 500 AD</div>
     <h2>Classical Antiquity</h2>
     <div class="specimens">
       <div class="specimen" data-type="sword">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6 L28 12 L27 34 L24 40 L21 34 L20 12 Z"/><line x1="16" y1="10" x2="32" y2="10"/></svg>
         </div>
-        <div class="specimen-tag">GREECE · SWORD</div>
+        <div class="meta-label specimen-tag">Greece · Sword</div>
         <h3>Xiphos</h3>
         <p>Double-edged short sword used by Greek hoplites as a secondary weapon when spearlines broke.</p>
-        <div class="specimen-mat">IRON · 50–60CM</div>
+        <div class="meta-label specimen-mat">Iron · 50–60cm</div>
       </div>
 
       <div class="specimen" data-type="sword">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6 L26 8 L25 36 L24 40 L23 36 L22 8 Z"/><rect x="20" y="4" width="8" height="4"/></svg>
         </div>
-        <div class="specimen-tag">ROME · SWORD</div>
+        <div class="meta-label specimen-tag">Rome · Sword</div>
         <h3>Gladius Hispaniensis</h3>
         <p>Standardized thrusting sword adopted from Iberian designs for tight legionary formations.</p>
-        <div class="specimen-mat">HIGH-CARBON STEEL · 50CM</div>
+        <div class="meta-label specimen-mat">High-Carbon Steel · 50cm</div>
       </div>
 
       <div class="specimen" data-type="armor">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12 Q24 6 36 12 L36 28 Q24 38 12 28 Z"/><line x1="12" y1="18" x2="36" y2="18"/></svg>
         </div>
-        <div class="specimen-tag">ROME · ARMOR</div>
+        <div class="meta-label specimen-tag">Rome · Armor</div>
         <h3>Lorica Segmentata</h3>
         <p>Articulated iron bands strapped to leather, delivering robust protection to Roman infantry.</p>
-        <div class="specimen-mat">IRON / LEATHER STRAPS</div>
+        <div class="meta-label specimen-mat">Iron / Leather Straps</div>
       </div>
     </div>
   </section>
 
   <!-- ERA 3 -->
   <section class="era" data-era="2">
-    <div class="era-range">III · 500 – 1000 AD</div>
+    <div class="meta-label era-range">III · 500 – 1000 AD</div>
     <h2>Migration Age &amp; Early Medieval</h2>
     <div class="specimens">
       <div class="specimen" data-type="sword">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L27 8 L26 38 L24 44 L22 38 L21 8 Z"/><line x1="20" y1="6" x2="28" y2="6"/></svg>
         </div>
-        <div class="specimen-tag">SCANDINAVIA · SWORD</div>
+        <div class="meta-label specimen-tag">Scandinavia · Sword</div>
         <h3>Pattern-Welded Spatha</h3>
         <p>Blades created by twisting rods of hard and soft iron together, forging distinctive rippled patterns.</p>
-        <div class="specimen-mat">PATTERN-WELDED IRON · 80CM</div>
+        <div class="meta-label specimen-mat">Pattern-Welded Iron · 80cm</div>
       </div>
 
       <div class="specimen" data-type="armor">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="17" cy="14" r="2"/><circle cx="24" cy="14" r="2"/><circle cx="31" cy="14" r="2"/><circle cx="20" cy="20" r="2"/><circle cx="27" cy="20" r="2"/></svg>
         </div>
-        <div class="specimen-tag">CONTINENTAL · ARMOR</div>
+        <div class="meta-label specimen-tag">Continental · Armor</div>
         <h3>Riveted Mail Hauberk</h3>
         <p>Thousands of hand-riveted iron rings forming flexible shirts capable of deflecting slashing blows.</p>
-        <div class="specimen-mat">RIVETED IRON RINGS</div>
+        <div class="meta-label specimen-mat">Riveted Iron Rings</div>
       </div>
     </div>
   </section>
 
   <!-- ERA 4 -->
   <section class="era" data-era="3">
-    <div class="era-range">IV · 1000 – 1300 AD</div>
+    <div class="meta-label era-range">IV · 1000 – 1300 AD</div>
     <h2>High Medieval</h2>
     <div class="specimens">
       <div class="specimen" data-type="polearm">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6 Q36 10 36 20 Q36 34 24 42 Q12 34 12 20 Q12 10 24 6 Z"/></svg>
         </div>
-        <div class="specimen-tag">NORMANDY · SHIELD</div>
+        <div class="meta-label specimen-tag">Normandy · Shield</div>
         <h3>Kite Shield</h3>
         <p>Long curved shields designed to protect mounted cavalrymen's legs and body in combat.</p>
-        <div class="specimen-mat">WOOD / RAWHIDE / IRON</div>
+        <div class="meta-label specimen-mat">Wood / Rawhide / Iron</div>
       </div>
 
       <div class="specimen" data-type="sword">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L28 10 L27 34 L24 40 L21 34 L20 10 Z"/><line x1="14" y1="10" x2="34" y2="10"/></svg>
         </div>
-        <div class="specimen-tag">EUROPE · SWORD</div>
+        <div class="meta-label specimen-tag">Europe · Sword</div>
         <h3>Knightly Arming Sword</h3>
         <p>Cruciform single-handed sword carried alongside shields across medieval battlefields.</p>
-        <div class="specimen-mat">STEEL · 95CM OVERALL</div>
+        <div class="meta-label specimen-mat">Steel · 95cm Overall</div>
       </div>
     </div>
   </section>
 
   <!-- ERA 5 -->
   <section class="era" data-era="4">
-    <div class="era-range">V · 1300 – 1600 AD</div>
+    <div class="meta-label era-range">V · 1300 – 1600 AD</div>
     <h2>Late Medieval &amp; Renaissance</h2>
     <div class="specimens">
       <div class="specimen" data-type="sword">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 3 L27 8 L26 32 L24 42 L22 32 L21 8 Z"/><line x1="16" y1="9" x2="32" y2="9"/></svg>
         </div>
-        <div class="specimen-tag">GERMANIA · SWORD</div>
+        <div class="meta-label specimen-tag">Germania · Sword</div>
         <h3>Two-Handed Longsword</h3>
         <p>Versatile double-edged sword designed for two-handed tactical fence and plate encounters.</p>
-        <div class="specimen-mat">STEEL · 120CM OVERALL</div>
+        <div class="meta-label specimen-mat">Steel · 120cm Overall</div>
       </div>
 
       <div class="specimen" data-type="armor">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8 L32 8 L30 22 L28 40 L20 40 L18 22 Z"/><line x1="16" y1="16" x2="32" y2="16"/></svg>
         </div>
-        <div class="specimen-tag">MILAN · ARMOR</div>
+        <div class="meta-label specimen-tag">Milan · Armor</div>
         <h3>Gothic Plate Harness</h3>
         <p>Full-body tailored steel plate, custom-hammered to deflect heavy impacts.</p>
-        <div class="specimen-mat">HARDENED STEEL</div>
+        <div class="meta-label specimen-mat">Hardened Steel</div>
       </div>
 
       <div class="specimen" data-type="polearm">
         <div class="specimen-icon">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="24" y1="4" x2="24" y2="44"/><path d="M24 4 L32 10 L24 16 L18 10 Z"/></svg>
         </div>
-        <div class="specimen-tag">SWITZERLAND · POLEARM</div>
+        <div class="meta-label specimen-tag">Switzerland · Polearm</div>
         <h3>Halberd</h3>
         <p>A multi-functional polearm combining an axe blade, hook, and point to counter armored riders.</p>
-        <div class="specimen-mat">STEEL / ASH SHAFT · 200CM</div>
+        <div class="meta-label specimen-mat">Steel / Ash Shaft · 200cm</div>
       </div>
     </div>
   </section>
