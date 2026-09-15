@@ -93,7 +93,7 @@
     padding: 16px 8vw 16px 90px;
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
   }
   .filter-label {
@@ -129,7 +129,7 @@
   /* ===== Hero ===== */
   #hero {
     position: relative;
-    min-height: 80vh;
+    min-height: 70vh;
     display: flex;
     align-items: center;
     padding: 0 8vw 0 90px;
@@ -154,7 +154,7 @@
   }
   .hero-sub {
     margin-top: 24px;
-    max-width: 520px;
+    max-width: 580px;
     font-size: 1.1rem;
     line-height: 1.7;
     color: var(--steel);
@@ -163,7 +163,7 @@
   /* ===== Era Sections ===== */
   .era {
     position: relative;
-    padding: 80px 8vw 60px 90px;
+    padding: 60px 8vw 40px 90px;
     max-width: 1400px;
     z-index: 1;
   }
@@ -188,9 +188,9 @@
 
   /* ===== Specimens Grid ===== */
   .specimens {
-    margin-top: 40px;
+    margin-top: 32px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
   }
 
@@ -201,6 +201,9 @@
     padding: 24px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .specimen::before {
@@ -229,11 +232,16 @@
     display: none;
   }
 
+  .specimen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
   .specimen-icon {
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
     color: var(--era-theme);
-    margin-bottom: 16px;
     filter: drop-shadow(0 0 8px var(--era-theme));
     transition: transform 0.3s ease;
   }
@@ -242,22 +250,36 @@
   }
   .specimen-tag {
     color: var(--steel);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .specimen h3 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     color: #FFF;
     margin-bottom: 8px;
   }
-  .specimen p {
-    font-size: 0.92rem;
-    line-height: 1.65;
+  
+  .specimen-specs {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+  }
+  .spec-title {
     color: var(--steel);
   }
+  .spec-val {
+    color: #FFF;
+    font-weight: 500;
+  }
   .specimen-mat {
-    margin-top: 16px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 8px;
     color: var(--era-theme);
   }
 
@@ -276,17 +298,19 @@
 <!-- Filter Control Bar -->
 <div id="filter-bar">
   <span class="meta-label filter-label">Filter Category:</span>
-  <button class="filter-btn active" data-filter="all">All Items</button>
+  <button class="filter-btn active" data-filter="all">All (20)</button>
   <button class="filter-btn" data-filter="sword">Swords</button>
+  <button class="filter-btn" data-filter="polearm">Polearms</button>
+  <button class="filter-btn" data-filter="axe">Axes</button>
   <button class="filter-btn" data-filter="armor">Armor</button>
-  <button class="filter-btn" data-filter="polearm">Polearms & Shields</button>
+  <button class="filter-btn" data-filter="shield">Shields</button>
 </div>
 
 <section id="hero">
   <div class="hero-inner">
-    <div class="meta-label hero-eyebrow">Dynamic Vault · 900 BC – 1600 AD</div>
+    <div class="meta-label hero-eyebrow">Catalog Vault · 700 BC – 1750 AD</div>
     <h1>The Long<br><em>Forge</em></h1>
-    <p class="hero-sub">Explore twenty-five centuries of metallurgy. Filter by arms category or scroll through distinct eras of combat evolution.</p>
+    <p class="hero-sub">A comprehensive chronicle of twenty historical weapons, body armors, and shields. Filter by armament type or explore their evolution across five distinct eras.</p>
   </div>
 </section>
 
@@ -294,166 +318,386 @@
 
   <!-- ERA 1 -->
   <section class="era" data-era="0">
-    <div class="meta-label era-range">I · 900 – 500 BC</div>
-    <h2>Iron Age Levant &amp; Mediterranean</h2>
+    <div class="meta-label era-range">I · Antiquity &amp; Early History (700 BC – 500 AD)</div>
+    <h2>Ancient &amp; Classical Arms</h2>
     <div class="specimens">
-      <div class="specimen" data-type="sword">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L27 10 L26 34 L24 40 L22 34 L21 10 Z"/><path d="M18 40 L30 40 L28 44 L20 44 Z"/></svg>
-        </div>
-        <div class="meta-label specimen-tag">Levant · Sword</div>
-        <h3>Naue II Sword</h3>
-        <p>A flanged hilt cast in one piece with the blade, carried by sea traders and mercenaries across early trade routes.</p>
-        <div class="meta-label specimen-mat">Bronze / Early Iron · 60cm</div>
-      </div>
 
       <div class="specimen" data-type="polearm">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 2 L30 16 L18 16 Z"/><line x1="24" y1="16" x2="24" y2="46"/></svg>
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Pole Arm · 700 BC - 1918</div>
+            <h3>Lance</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 2 L30 16 L18 16 Z"/><line x1="24" y1="16" x2="24" y2="46"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Assyria · Spear</div>
-        <h3>Assyrian Spearhead</h3>
-        <p>Mass-produced in state workshops for standing armies, forming formidable shield-wall infantry formations.</p>
-        <div class="meta-label specimen-mat">Wrought Iron · 28cm Head</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">5 - 20 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">6.5 - 14 feet</span></div>
+          <div class="meta-label specimen-mat">Material: Steel points on wood shaft</div>
+        </div>
       </div>
 
       <div class="specimen" data-type="armor">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="10" width="6" height="6"/><rect x="18" y="10" width="6" height="6"/><rect x="26" y="10" width="6" height="6"/><rect x="14" y="18" width="6" height="6"/><rect x="22" y="18" width="6" height="6"/></svg>
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Armor · 300 BC - 1700 AD</div>
+            <h3>Chainmail</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="17" cy="14" r="2"/><circle cx="24" cy="14" r="2"/><circle cx="31" cy="14" r="2"/><circle cx="20" cy="20" r="2"/><circle cx="27" cy="20" r="2"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Near East · Armor</div>
-        <h3>Lamellar Cuirass</h3>
-        <p>Overlapping plates of bronze or hardened leather laced into flexible, protective rows.</p>
-        <div class="meta-label specimen-mat">Bronze / Leather</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">22 - 33 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">N/A</span></div>
+          <div class="meta-label specimen-mat">Material: Interlocking metal chains</div>
+        </div>
       </div>
+
     </div>
   </section>
 
   <!-- ERA 2 -->
   <section class="era" data-era="1">
-    <div class="meta-label era-range">II · 500 BC – 500 AD</div>
-    <h2>Classical Antiquity</h2>
+    <div class="meta-label era-range">II · Migration &amp; Early Middle Ages (450 – 1185 AD)</div>
+    <h2>Early Medieval &amp; Feudal Warfare</h2>
     <div class="specimens">
-      <div class="specimen" data-type="sword">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6 L28 12 L27 34 L24 40 L21 34 L20 12 Z"/><line x1="16" y1="10" x2="32" y2="10"/></svg>
-        </div>
-        <div class="meta-label specimen-tag">Greece · Sword</div>
-        <h3>Xiphos</h3>
-        <p>Double-edged short sword used by Greek hoplites as a secondary weapon when spearlines broke.</p>
-        <div class="meta-label specimen-mat">Iron · 50–60cm</div>
-      </div>
 
       <div class="specimen" data-type="sword">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6 L26 8 L25 36 L24 40 L23 36 L22 8 Z"/><rect x="20" y="4" width="8" height="4"/></svg>
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Arming Sword · 450 - 800 AD</div>
+            <h3>Seax</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L27 10 L26 34 L24 40 L22 34 L21 10 Z"/><path d="M18 40 L30 40 L28 44 L20 44 Z"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Rome · Sword</div>
-        <h3>Gladius Hispaniensis</h3>
-        <p>Standardized thrusting sword adopted from Iberian designs for tight legionary formations.</p>
-        <div class="meta-label specimen-mat">High-Carbon Steel · 50cm</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">0.9 - 1.8 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">12 - 24 in</span></div>
+          <div class="meta-label specimen-mat">Material: Carbon steel</div>
+        </div>
       </div>
 
-      <div class="specimen" data-type="armor">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12 Q24 6 36 12 L36 28 Q24 38 12 28 Z"/><line x1="12" y1="18" x2="36" y2="18"/></svg>
+      <div class="specimen" data-type="polearm">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Pole Arm · 794 - 1185 AD</div>
+            <h3>Naginata</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 2 L30 16 L18 16 Z"/><line x1="24" y1="16" x2="24" y2="46"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Rome · Armor</div>
-        <h3>Lorica Segmentata</h3>
-        <p>Articulated iron bands strapped to leather, delivering robust protection to Roman infantry.</p>
-        <div class="meta-label specimen-mat">Iron / Leather Straps</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">2.2 - 7.7 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">6.5 - 8.5 feet</span></div>
+          <div class="meta-label specimen-mat">Material: Steel blade on wood &amp; bamboo</div>
+        </div>
       </div>
+
+      <div class="specimen" data-type="axe">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Axe · 900 - 1066 AD</div>
+            <h3>Broad Axe</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="24" y1="4" x2="24" y2="44"/><path d="M24 4 L34 14 L24 24 Z"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">1.1 - 7.2 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">8.5 in</span></div>
+          <div class="meta-label specimen-mat">Material: High carbon steel</div>
+        </div>
+      </div>
+
+      <div class="specimen" data-type="shield">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Shield · 900 - 1100 AD</div>
+            <h3>Kite Shield</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6 Q36 10 36 20 Q36 34 24 42 Q12 34 12 20 Q12 10 24 6 Z"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">6 - 10 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">40 - 45 in</span></div>
+          <div class="meta-label specimen-mat">Material: Wood wrapped in leather</div>
+        </div>
+      </div>
+
+      <div class="specimen" data-type="axe">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Axe · 900 - 1750 AD</div>
+            <h3>Battle Axe</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="24" y1="4" x2="24" y2="44"/><path d="M24 4 L34 14 L24 24 Z"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">1.3 - 8.4 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">1 - 7 ft</span></div>
+          <div class="meta-label specimen-mat">Material: Iron and steel</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ERA 3 -->
   <section class="era" data-era="2">
-    <div class="meta-label era-range">III · 500 – 1000 AD</div>
-    <h2>Migration Age &amp; Early Medieval</h2>
+    <div class="meta-label era-range">III · High Medieval Era (1185 – 1392 AD)</div>
+    <h2>Knights &amp; Feudal Warriors</h2>
     <div class="specimens">
+
       <div class="specimen" data-type="sword">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L27 8 L26 38 L24 44 L22 38 L21 8 Z"/><line x1="20" y1="6" x2="28" y2="6"/></svg>
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Japanese Sword · 1185 AD - Present</div>
+            <h3>Uchigatana</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6 L28 12 L27 34 L24 40 L21 34 L20 12 Z"/><line x1="16" y1="10" x2="32" y2="10"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Scandinavia · Sword</div>
-        <h3>Pattern-Welded Spatha</h3>
-        <p>Blades created by twisting rods of hard and soft iron together, forging distinctive rippled patterns.</p>
-        <div class="meta-label specimen-mat">Pattern-Welded Iron · 80cm</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">2.2 - 3.2 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">23 - 27 in</span></div>
+          <div class="meta-label specimen-mat">Material: Tamahagane steel</div>
+        </div>
+      </div>
+
+      <div class="specimen" data-type="polearm">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Pole Arm · 1200 - 1600 AD</div>
+            <h3>Halberd</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="24" y1="4" x2="24" y2="44"/><path d="M24 4 L32 10 L24 16 L18 10 Z"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">5 - 8 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">6.5 - 8 feet</span></div>
+          <div class="meta-label specimen-mat">Material: Low carbon steel with wood pole</div>
+        </div>
       </div>
 
       <div class="specimen" data-type="armor">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="17" cy="14" r="2"/><circle cx="24" cy="14" r="2"/><circle cx="31" cy="14" r="2"/><circle cx="20" cy="20" r="2"/><circle cx="27" cy="20" r="2"/></svg>
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Armor · 1200 - 1400 AD</div>
+            <h3>Plate Armor</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8 L32 8 L30 22 L28 40 L20 40 L18 22 Z"/><line x1="16" y1="16" x2="32" y2="16"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Continental · Armor</div>
-        <h3>Riveted Mail Hauberk</h3>
-        <p>Thousands of hand-riveted iron rings forming flexible shirts capable of deflecting slashing blows.</p>
-        <div class="meta-label specimen-mat">Riveted Iron Rings</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">33 - 55 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">N/A</span></div>
+          <div class="meta-label specimen-mat">Material: Iron and steel</div>
+        </div>
       </div>
+
+      <div class="specimen" data-type="axe">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Axe · 1230 - 1600 AD</div>
+            <h3>Dane Axe</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="24" y1="4" x2="24" y2="44"/><path d="M24 4 L34 14 L24 24 Z"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">2.2 - 4.4 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">1 - 4 ft</span></div>
+          <div class="meta-label specimen-mat">Material: Bloomery steel</div>
+        </div>
+      </div>
+
+      <div class="specimen" data-type="sword">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Japanese Sword · 1336 - 1392 AD</div>
+            <h3>Odachi</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 3 L27 8 L26 32 L24 42 L22 32 L21 8 Z"/><line x1="16" y1="9" x2="32" y2="9"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">5 - 10 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">36 - 59 in</span></div>
+          <div class="meta-label specimen-mat">Material: High carbon steel</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ERA 4 -->
   <section class="era" data-era="3">
-    <div class="meta-label era-range">IV · 1000 – 1300 AD</div>
-    <h2>High Medieval</h2>
+    <div class="meta-label era-range">IV · Late Medieval Era (1300 – 1521 AD)</div>
+    <h2>Late Medieval Innovations</h2>
     <div class="specimens">
-      <div class="specimen" data-type="polearm">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6 Q36 10 36 20 Q36 34 24 42 Q12 34 12 20 Q12 10 24 6 Z"/></svg>
+
+      <div class="specimen" data-type="sword">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Thrusting Sword · 1300 - 1600 AD</div>
+            <h3>Estoc</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L27 8 L26 38 L24 44 L22 38 L21 8 Z"/><line x1="20" y1="6" x2="28" y2="6"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Normandy · Shield</div>
-        <h3>Kite Shield</h3>
-        <p>Long curved shields designed to protect mounted cavalrymen's legs and body in combat.</p>
-        <div class="meta-label specimen-mat">Wood / Rawhide / Iron</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">4 - 6 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">36 - 52 in</span></div>
+          <div class="meta-label specimen-mat">Material: High carbon steel</div>
+        </div>
+      </div>
+
+      <div class="specimen" data-type="polearm">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Pole Arm · 1300 - 1521 AD</div>
+            <h3>Tepoztopilli</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 2 L30 16 L18 16 Z"/><line x1="24" y1="16" x2="24" y2="46"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">3 - 6 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">3 - 7 ft</span></div>
+          <div class="meta-label specimen-mat">Material: Wooden shaft &amp; obsidian blades</div>
+        </div>
+      </div>
+
+      <div class="specimen" data-type="shield">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Shield · 1300 - 1600 AD</div>
+            <h3>Rondache</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="6"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">4 - 9 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">18 - 23 in</span></div>
+          <div class="meta-label specimen-mat">Material: Light wood boards or metal</div>
+        </div>
       </div>
 
       <div class="specimen" data-type="sword">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L28 10 L27 34 L24 40 L21 34 L20 10 Z"/><line x1="14" y1="10" x2="34" y2="10"/></svg>
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Long Sword · 1400 - 1600 AD</div>
+            <h3>Montante</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 3 L27 8 L26 32 L24 42 L22 32 L21 8 Z"/><line x1="16" y1="9" x2="32" y2="9"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Europe · Sword</div>
-        <h3>Knightly Arming Sword</h3>
-        <p>Cruciform single-handed sword carried alongside shields across medieval battlefields.</p>
-        <div class="meta-label specimen-mat">Steel · 95cm Overall</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">5 - 7 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">55 - 70 in</span></div>
+          <div class="meta-label specimen-mat">Material: High carbon steel</div>
+        </div>
       </div>
+
+      <div class="specimen" data-type="sword">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Long Sword · 1400 - 1700 AD</div>
+            <h3>Claymore</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 3 L27 8 L26 32 L24 42 L22 32 L21 8 Z"/><line x1="14" y1="9" x2="34" y2="9"/></svg>
+          </div>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">4.9 - 6.2 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">47 - 55 in</span></div>
+          <div class="meta-label specimen-mat">Material: Bloomery steel</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ERA 5 -->
   <section class="era" data-era="4">
-    <div class="meta-label era-range">V · 1300 – 1600 AD</div>
-    <h2>Late Medieval &amp; Renaissance</h2>
+    <div class="meta-label era-range">V · Renaissance &amp; Early Modern (1500 – 1700 AD)</div>
+    <h2>Renaissance Masterworks</h2>
     <div class="specimens">
+
       <div class="specimen" data-type="sword">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 3 L27 8 L26 32 L24 42 L22 32 L21 8 Z"/><line x1="16" y1="9" x2="32" y2="9"/></svg>
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Arming Sword · 1500 - 1600 AD</div>
+            <h3>Katzbalger</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L27 10 L26 34 L24 40 L22 34 L21 10 Z"/><line x1="14" y1="10" x2="34" y2="10"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Germania · Sword</div>
-        <h3>Two-Handed Longsword</h3>
-        <p>Versatile double-edged sword designed for two-handed tactical fence and plate encounters.</p>
-        <div class="meta-label specimen-mat">Steel · 120cm Overall</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">1.8 - 3.3 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">28 - 31 in</span></div>
+          <div class="meta-label specimen-mat">Material: Carbon steel or iron</div>
+        </div>
       </div>
 
-      <div class="specimen" data-type="armor">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8 L32 8 L30 22 L28 40 L20 40 L18 22 Z"/><line x1="16" y1="16" x2="32" y2="16"/></svg>
+      <div class="specimen" data-type="sword">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Thrusting Sword · 1540 - 1700 AD</div>
+            <h3>Rapier</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4 L26 6 L25 38 L24 44 L23 38 L22 6 Z"/><circle cx="24" cy="42" r="4"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Milan · Armor</div>
-        <h3>Gothic Plate Harness</h3>
-        <p>Full-body tailored steel plate, custom-hammered to deflect heavy impacts.</p>
-        <div class="meta-label specimen-mat">Hardened Steel</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">2.2 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">41 in</span></div>
+          <div class="meta-label specimen-mat">Material: High carbon steel</div>
+        </div>
       </div>
 
-      <div class="specimen" data-type="polearm">
-        <div class="specimen-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="24" y1="4" x2="24" y2="44"/><path d="M24 4 L32 10 L24 16 L18 10 Z"/></svg>
+      <div class="specimen" data-type="axe">
+        <div class="specimen-header">
+          <div>
+            <div class="meta-label specimen-tag">Axe · 1600s AD</div>
+            <h3>Bearded Axe</h3>
+          </div>
+          <div class="specimen-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="24" y1="4" x2="24" y2="44"/><path d="M24 4 L34 14 Q28 28 24 30 Z"/></svg>
+          </div>
         </div>
-        <div class="meta-label specimen-tag">Switzerland · Polearm</div>
-        <h3>Halberd</h3>
-        <p>A multi-functional polearm combining an axe blade, hook, and point to counter armored riders.</p>
-        <div class="meta-label specimen-mat">Steel / Ash Shaft · 200cm</div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">1.2 - 3.3 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">16 - 32 in</span></div>
+          <div class="meta-label specimen-mat">Material: High carbon steel</div>
+        </div>
       </div>
+
     </div>
   </section>
 
