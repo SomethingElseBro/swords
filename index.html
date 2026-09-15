@@ -305,8 +305,10 @@
 <!-- Filter Control Bar -->
 <div id="filter-bar">
   <span class="meta-label filter-label">Filter Category:</span>
-  <button class="filter-btn active" data-filter="all">All (24)</button>
+  <button class="filter-btn active" data-filter="all">All (29)</button>
   <button class="filter-btn" data-filter="sword">Swords</button>
+
+  <button class="filter-btn" data-filter="ranged">Ranged</button>
   <button class="filter-btn" data-filter="polearm">Polearms</button>
   <button class="filter-btn" data-filter="axe">Axes</button>
   <button class="filter-btn" data-filter="armor">Armor</button>
@@ -315,9 +317,9 @@
 
 <section id="hero">
   <div class="hero-inner">
-    <div class="meta-label hero-eyebrow">Catalog Vault · 700 BC – 1750 AD</div>
+    <div class="meta-label hero-eyebrow">Catalog Vault · 1000 BC – 1750 AD</div>
     <h1>The Long<br><em>Forge</em></h1>
-    <p class="hero-sub">A detailed historical chronicle of twenty-four armaments, plate harness, and protective shields. Filter by weapon category or browse chronologically.</p>
+    <p class="hero-sub">A detailed historical chronicle of twenty-nine armaments, bows, plate harness, and protective shields. Filter by weapon category or browse chronologically.</p>
   </div>
 </section>
 
@@ -325,7 +327,7 @@
 
   <!-- ERA 1 -->
   <section class="era" data-era="0">
-    <div class="meta-label era-range">I · Antiquity &amp; Classical Era (700 BC – 500 AD)</div>
+    <div class="meta-label era-range">I · Antiquity &amp; Classical Era (1000 BC – 500 AD)</div>
     <h2>Ancient &amp; Classical Arms</h2>
     <div class="specimens">
 
@@ -349,7 +351,48 @@
         </div>
       </div>
 
-      <!-- NEW ITEM 1 -->
+      <!-- NEW RANGED ITEM 1 -->
+      <div class="specimen" data-type="ranged">
+        <div>
+          <div class="specimen-header">
+            <div>
+              <div class="meta-label specimen-tag">Ranged · 1000 BC - 1400 AD</div>
+              <h3>Composite Bow</h3>
+            </div>
+            <div class="specimen-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6 C28 12 28 36 12 42"/><line x1="12" y1="6" x2="12" y2="42"/><line x1="12" y1="24" x2="38" y2="24"/><path d="M32 20 L38 24 L32 28"/></svg>
+            </div>
+          </div>
+          <p class="specimen-desc">A compact, powerful bow constructed from laminated horn, wood, and sinew, optimized for mounted horse archers across Asian and Eurasian steppes.</p>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">1.5 - 3 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">3 - 4.5 feet</span></div>
+          <div class="meta-label specimen-mat">Material: Horn, wood, sinew &amp; animal glue</div>
+        </div>
+      </div>
+
+      <!-- NEW RANGED ITEM 2 -->
+      <div class="specimen" data-type="ranged">
+        <div>
+          <div class="specimen-header">
+            <div>
+              <div class="meta-label specimen-tag">Ranged · 420 BC - 100 AD</div>
+              <h3>Gastraphetes</h3>
+            </div>
+            <div class="specimen-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="24" x2="40" y2="24"/><path d="M16 10 C28 16 28 32 16 38"/><rect x="32" y="18" width="10" height="12" rx="2"/></svg>
+            </div>
+          </div>
+          <p class="specimen-desc">An ancient Greek hand-held mechanical "belly-bow" crossbow cocked by pressing the user's stomach against a curved stock notch.</p>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">12 - 18 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">3 - 4 feet</span></div>
+          <div class="meta-label specimen-mat">Material: Composite wood, horn &amp; bronze</div>
+        </div>
+      </div>
+
       <div class="specimen" data-type="shield">
         <div>
           <div class="specimen-header">
@@ -508,7 +551,27 @@
     <h2>Knights &amp; Feudal Warriors</h2>
     <div class="specimens">
 
-      <!-- NEW ITEM 2 -->
+      <!-- NEW RANGED ITEM 3 -->
+      <div class="specimen" data-type="ranged">
+        <div>
+          <div class="specimen-header">
+            <div>
+              <div class="meta-label specimen-tag">Ranged · 1250 - 1500 AD</div>
+              <h3>English Longbow</h3>
+            </div>
+            <div class="specimen-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 4 C30 14 30 34 14 44"/><line x1="14" y1="4" x2="14" y2="44"/><line x1="14" y1="24" x2="42" y2="24"/><path d="M36 20 L42 24 L36 28"/></svg>
+            </div>
+          </div>
+          <p class="specimen-desc">A tall, powerful self-bow made from a single stave of yew, famous for devastating French armored chivalry at Agincourt and Crécy.</p>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">1.5 - 2.5 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">6 - 6.6 feet</span></div>
+          <div class="meta-label specimen-mat">Material: Yew wood stave &amp; hemp string</div>
+        </div>
+      </div>
+
       <div class="specimen" data-type="sword">
         <div>
           <div class="specimen-header">
@@ -638,6 +701,48 @@
     <h2>Late Medieval Innovations</h2>
     <div class="specimens">
 
+      <!-- NEW RANGED ITEM 4 -->
+      <div class="specimen" data-type="ranged">
+        <div>
+          <div class="specimen-header">
+            <div>
+              <div class="meta-label specimen-tag">Ranged · 1300 - 1600 AD</div>
+              <h3>Arbalest</h3>
+            </div>
+            <div class="specimen-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="24" x2="40" y2="24"/><path d="M12 12 L24 24 L12 36"/><rect x="20" y="20" width="16" height="8" rx="1"/></svg>
+            </div>
+          </div>
+          <p class="specimen-desc">A heavy European crossbow equipped with a forged steel prod, requiring a mechanical windlass or cranequin to span its immense draw weight.</p>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">15 - 22 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">33 - 39 in</span></div>
+          <div class="meta-label specimen-mat">Material: Forged steel prod &amp; hardwood stock</div>
+        </div>
+      </div>
+
+      <!-- NEW RANGED ITEM 5 -->
+      <div class="specimen" data-type="ranged">
+        <div>
+          <div class="specimen-header">
+            <div>
+              <div class="meta-label specimen-tag">Ranged · 200 BC - 1895 AD</div>
+              <h3>Chu-Ko-Nu</h3>
+            </div>
+            <div class="specimen-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="26" x2="38" y2="26"/><path d="M14 14 C26 18 26 34 14 38"/><rect x="20" y="10" width="12" height="16" rx="2"/></svg>
+            </div>
+          </div>
+          <p class="specimen-desc">An ingenious Chinese repeating crossbow using a top-mounted gravity magazine and lever mechanism to fire up to 10 bolts in 15 seconds.</p>
+        </div>
+        <div class="specimen-specs">
+          <div class="spec-row"><span class="spec-title">Typical Weight:</span><span class="spec-val">8 - 12 lbs</span></div>
+          <div class="spec-row"><span class="spec-title">Typical Length:</span><span class="spec-val">28 - 32 in</span></div>
+          <div class="meta-label specimen-mat">Material: Bamboo, mulberry wood &amp; bronze</div>
+        </div>
+      </div>
+
       <div class="specimen" data-type="sword">
         <div>
           <div class="specimen-header">
@@ -738,7 +843,6 @@
         </div>
       </div>
 
-      <!-- NEW ITEM 3 -->
       <div class="specimen" data-type="sword">
         <div>
           <div class="specimen-header">
@@ -828,7 +932,6 @@
         </div>
       </div>
 
-      <!-- NEW ITEM 4 -->
       <div class="specimen" data-type="axe">
         <div>
           <div class="specimen-header">
