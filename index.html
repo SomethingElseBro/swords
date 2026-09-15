@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Long Forge — A Chronicle of Arms, 900 BC – 1600 AD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14110D;
+    --panel:#1E1912;
+    --panel2:#241E15;
+    --steel:#9C9C8E;
+    --parchment:#E8E1D3;
+    --ember:#C1440E;
+    --ember-bright:#E85D2A;
+    --brass:#A6813C;
+    --brass-dim:#5C4C2A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--parchment);
+    font-family:'IBM Plex Sans', sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Cinzel', serif;
+    letter-spacing:0.02em;
+    font-weight:600;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ===== spine ===== */
+  #spine{
+    position:fixed;
+    left:28px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:var(--brass-dim);
+    z-index:40;
+  }
+  #spine-fill{
+    position:absolute;
+    top:0; left:0; width:100%;
+    height:0%;
+    background:linear-gradient(to bottom, var(--ember-bright), var(--brass));
+    transition:height 0.1s linear;
+  }
+  .spine-tick{
+    position:absolute;
+    left:-4px;
+    width:10px; height:10px;
+    border-radius:50%;
+    background:var(--panel);
+    border:2px solid var(--brass-dim);
+    transition:border-color 0.4s ease, background 0.4s ease, box-shadow .4s ease;
+  }
+  .spine-tick.active{
+    border-color:var(--ember-bright);
+    background:var(--ember);
+    box-shadow:0 0 10px var(--ember-bright), 0 0 20px rgba(200,70,20,0.5);
+  }
+  @media (max-width: 760px){
+    #spine{left:14px;}
+    .spine-tick{left:-4px;}
+  }
+
+  /* ===== top label ===== */
+  #brandmark{
+    position:fixed;
+    top:24px; right:32px;
+    z-index:40;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    color:var(--steel);
+    text-align:right;
+    line-height:1.6;
+  }
+  #brandmark span{color:var(--ember-bright);}
+  @media (max-width:760px){ #brandmark{display:none;} }
+
+  /* ===== hero ===== */
+  #hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:0 8vw 0 90px;
+    overflow:hidden;
+  }
+  #ember-canvas{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+  #blade-wrap{
+    position:absolute;
+    right:-6vw;
+    top:50%;
+    transform:translateY(-50%);
+    width:46vw;
+    max-width:640px;
+    opacity:0.9;
+    z-index:1;
+    pointer-events:none;
+  }
+  #blade-wrap svg{width:100%; height:auto; display:block;}
+  .glint{
+    animation:sweep 5.5s ease-in-out infinite;
+  }
+  @keyframes sweep{
+    0%   {transform:translateX(-140%) rotate(18deg);}
+    45%  {transform:translateX(160%) rotate(18deg);}
+    100% {transform:translateX(160%) rotate(18deg);}
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    max-width:640px;
+  }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    color:var(--brass);
+    margin-bottom:22px;
+  }
+  .hero-inner h1{
+    font-size:clamp(48px, 7vw, 92px);
+    line-height:0.98;
+    color:var(--parchment);
+  }
+  .hero-inner h1 em{
+    font-style:normal;
+    color:var(--ember-bright);
+  }
+  .hero-sub{
+    margin-top:28px;
+    max-width:460px;
+    font-size:17px;
+    line-height:1.7;
+    color:var(--steel);
+  }
+  .hero-cta{
+    margin-top:44px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--parchment);
+    text-decoration:none;
+    border-bottom:1px solid var(--brass);
+    padding-bottom:6px;
+    cursor:pointer;
+    background:none;
+    border-top:none;border-left:none;border-right:none;
+  }
+  .hero-cta .arrow{
+    display:inline-block;
+    animation:bob 1.8s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(5px);}
+  }
+
+  /* ===== era sections ===== */
+  .era{
+    position:relative;
+    padding:130px 8vw 60px 90px;
+    max-width:1200px;
+  }
+  .era-head{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 0.8s ease, transform 0.8s ease;
+  }
+  .era-head.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .era-range{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.1em;
+    color:var(--ember-bright);
+    margin-bottom:14px;
+  }
+  .era h2{
+    font-size:clamp(28px, 3.4vw, 44px);
+    color:var(--parchment);
+    max-width:680px;
+    line-height:1.15;
+  }
+  .era-copy{
+    margin-top:22px;
+    max-width:600px;
+    color:var(--steel);
+    font-size:15.5px;
+    line-height:1.75;
+  }
+
+  .specimens{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:1px;
+    background:var(--brass-dim);
+    border:1px solid var(--brass-dim);
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s;
+  }
+  .specimens.in{opacity:1; transform:translateY(0);}
+  .specimen{
+    background:var(--panel);
+    padding:28px 24px 24px;
+    position:relative;
+  }
+  .specimen-icon{
+    width:46px; height:46px;
+    margin-bottom:20px;
+    color:var(--brass);
+    position:relative;
+    overflow:hidden;
+  }
+  .specimen-icon svg{width:100%;height:100%;}
+  .specimen-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    color:var(--steel);
+    margin-bottom:8px;
+  }
+  .specimen h3{
+    font-size:19px;
+    color:var(--parchment);
+    margin-bottom:10px;
+    font-weight:600;
+  }
+  .specimen p{
+    font-size:14px;
+    line-height:1.65;
+    color:var(--steel);
+  }
+  .specimen-mat{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid var(--brass-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--brass);
+    letter-spacing:0.05em;
+  }
+
+  /* ===== footer ===== */
+  #foot{
+    padding:120px 8vw 80px 90px;
+    border-top:1px solid var(--brass-dim);
+    max-width:1200px;
+  }
+  #foot h2{
+    font-size:clamp(26px,3vw,38px);
+    max-width:560px;
+    line-height:1.2;
+    color:var(--parchment);
+  }
+  #foot p{
+    margin-top:20px;
+    max-width:480px;
+    color:var(--steel);
+    font-size:15px;
+    line-height:1.7;
+  }
+  .foot-meta{
+    margin-top:56px;
+    display:flex;
+    gap:48px;
+    flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--steel);
+    letter-spacing:0.06em;
+  }
+  .foot-meta strong{display:block; color:var(--brass); margin-bottom:6px; font-weight:500;}
+
+  @media (max-width:760px){
+    #hero{padding:0 6vw 0 46px;}
+    .era{padding:100px 6vw 40px 46px;}
+    #foot{padding:100px 6vw 60px 46px;}
+    #blade-wrap{width:80vw; opacity:0.35; right:-20vw;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="spine"><div id="spine-fill"></div></div>
+<div id="brandmark">THE LONG FORGE<br><span>◆</span> A CHRONICLE OF ARMS</div>
+
+<canvas id="ember-canvas"></canvas>
+
+<section id="hero">
+  <div id="blade-wrap">
+    <svg viewBox="0 0 400 760" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#2b271f"/>
+          <stop offset="50%" stop-color="#807a68"/>
+          <stop offset="100%" stop-color="#2b271f"/>
+        </linearGradient>
+        <clipPath id="bladeClip">
+          <path d="M200 10 L220 40 L226 480 L200 560 L174 480 L180 40 Z"/>
+        </clipPath>
+      </defs>
+      <path d="M200 10 L220 40 L226 480 L200 560 L174 480 L180 40 Z" fill="url(#steelGrad)" stroke="#3a3428" stroke-width="1.5"/>
+      <rect x="178" y="560" width="44" height="14" fill="#5C4C2A"/>
+      <rect x="192" y="574" width="16" height="120" fill="#241E15" stroke="#5C4C2A" stroke-width="1"/>
+      <ellipse cx="200" cy="694" rx="20" ry="10" fill="#A6813C"/>
+      <g clip-path="url(#bladeClip)">
+        <rect class="glint" x="-60" y="0" width="70" height="760" fill="rgba(255,255,255,0.55)" transform="skewX(-18)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">A DIGITAL VAULT · 900 BC – 1600 AD</div>
+    <h1>The Long<br><em>Forge</em></h1>
+    <p class="hero-sub">Twenty-five centuries of edge, weight, and temper — from Iron Age spearheads to Renaissance plate. Every piece here was made to be carried into something irreversible.</p>
+    <button class="hero-cta" onclick="document.getElementById('era-1').scrollIntoView({behavior:'smooth'})">
+      DESCEND INTO THE VAULT <span class="arrow">↓</span>
+    </button>
+  </div>
+</section>
+
+<main>
+
+  <section class="era" id="era-1" data-era="0">
+    <div class="era-head">
+      <div class="era-range">I · 900 – 500 BC</div>
+      <h2>Iron Age Levant &amp; the Mediterranean</h2>
+      <p class="era-copy">Bronze gives way to iron across the eastern Mediterranean and Near East. Smiths are still learning the metal's temper — early iron blades are softer than their bronze predecessors, but the ore is cheap and everywhere, and armies grow larger because of it.</p>
+    </div>
+    <div class="specimens">
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 4 L27 10 L26 34 L24 40 L22 34 L21 10 Z"/><path d="M18 40 L30 40 L28 44 L20 44 Z"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 01 — LEVANT</div>
+        <h3>Naue II Sword</h3>
+        <p>A flanged hilt cast in one piece with the blade, carried from the Aegean to the Levant by sea traders and mercenaries alike. Its shape would outlive the Bronze Age that produced it by three hundred years.</p>
+        <div class="specimen-mat">BRONZE / EARLY IRON · 60CM</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 2 L30 16 L18 16 Z"/><line x1="24" y1="16" x2="24" y2="46"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 02 — ASSYRIA</div>
+        <h3>Assyrian Iron Spearhead</h3>
+        <p>Mass-produced in state workshops for the standing armies of Ashurnasirpal, these leaf-bladed heads were fitted to shafts nearly the height of two men, forming the wall that Assyrian infantry advanced behind.</p>
+        <div class="specimen-mat">WROUGHT IRON · 28CM HEAD</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="10" y="10" width="6" height="6"/><rect x="18" y="10" width="6" height="6"/><rect x="26" y="10" width="6" height="6"/><rect x="14" y="18" width="6" height="6"/><rect x="22" y="18" width="6" height="6"/><rect x="18" y="26" width="6" height="6"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 03 — NEAR EAST</div>
+        <h3>Lamellar Cuirass</h3>
+        <p>Small rectangular plates of hardened leather or bronze, laced into overlapping rows. Flexible enough to ride in, dense enough to turn a glancing arrow — the ancestor of every scale armor that follows it.</p>
+        <div class="specimen-mat">BRONZE PLATE / HIDE LACING</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="era" id="era-2" data-era="1">
+    <div class="era-head">
+      <div class="era-range">II · 500 BC – 500 AD</div>
+      <h2>Classical Antiquity</h2>
+      <p class="era-copy">Greek city-states and then Rome standardize the sidearm. Weapons stop being personal heirlooms and start being issued equipment — forged to a pattern, in volume, by armies that expect to replace them.</p>
+    </div>
+    <div class="specimens">
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 6 L28 12 L27 34 L24 40 L21 34 L20 12 Z"/><line x1="16" y1="10" x2="32" y2="10"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 04 — GREECE</div>
+        <h3>Xiphos</h3>
+        <p>A leaf-shaped short sword carried by hoplites as a backup once the spear broke or was lost in the crush of the phalanx line — a weapon designed for the moment formation discipline had already failed.</p>
+        <div class="specimen-mat">IRON · 50–60CM</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 6 L26 8 L25 36 L24 40 L23 36 L22 8 Z"/><rect x="20" y="4" width="8" height="4"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 05 — ROME</div>
+        <h3>Gladius Hispaniensis</h3>
+        <p>Short, stiff, and built for the thrust rather than the cut — adopted from Iberian mercenaries and issued across the legions. Its wielders were trained to fight shoulder-to-shoulder, stabbing past the shield of the man beside them.</p>
+        <div class="specimen-mat">HIGH-CARBON STEEL · 45–56CM</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 12 Q24 6 36 12 L36 28 Q24 38 12 28 Z"/><line x1="12" y1="18" x2="36" y2="18"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 06 — ROME</div>
+        <h3>Lorica Segmentata</h3>
+        <p>Overlapping bands of iron strapped over a leather harness, articulated at the shoulder so a man could still raise a shield arm. Expensive to maintain and prone to rust — which is why so few complete sets survive.</p>
+        <div class="specimen-mat">IRON BANDS / LEATHER STRAPPING</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="era" id="era-3" data-era="2">
+    <div class="era-head">
+      <div class="era-range">III · 500 – 1000 AD</div>
+      <h2>Migration Age &amp; Early Medieval</h2>
+      <p class="era-copy">Rome's arms industry collapses with its roads. In its place: workshops scattered from the Rhine to the Volga, where pattern-welding — twisting rods of iron and steel together before folding — becomes the mark of a blade worth owning.</p>
+    </div>
+    <div class="specimens">
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 4 L27 8 L26 38 L24 44 L22 38 L21 8 Z"/><line x1="20" y1="6" x2="28" y2="6"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 07 — SCANDINAVIA</div>
+        <h3>Pattern-Welded Spatha</h3>
+        <p>The core of the blade is twisted from alternating rods of hard and soft iron, forge-welded and folded until the surface shows a rippling, almost woodgrain pattern — as much a signature as a strengthening technique.</p>
+        <div class="specimen-mat">PATTERN-WELDED IRON · 75–90CM</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 30 L34 10 L36 14 L12 34 Z"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 08 — FRANKIA</div>
+        <h3>Seax</h3>
+        <p>A single-edged fighting knife, worn openly across the belt as both tool and weapon — common enough among Frankish and Anglo-Saxon men that the word gave the Saxons their name.</p>
+        <div class="specimen-mat">IRON / STEEL EDGE · 20–35CM</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="17" cy="14" r="2"/><circle cx="24" cy="14" r="2"/><circle cx="31" cy="14" r="2"/><circle cx="20" cy="20" r="2"/><circle cx="27" cy="20" r="2"/><circle cx="17" cy="26" r="2"/><circle cx="24" cy="26" r="2"/><circle cx="31" cy="26" r="2"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 09 — CONTINENTAL</div>
+        <h3>Riveted Mail Hauberk</h3>
+        <p>Tens of thousands of iron rings, each one riveted shut by hand, woven into a shirt that could take a man's smith a full year to complete alone. Slashing does little against it; a thrust or a heavy blow still does the work.</p>
+        <div class="specimen-mat">RIVETED IRON RINGS</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="era" id="era-4" data-era="3">
+    <div class="era-head">
+      <div class="era-range">IV · 1000 – 1300 AD</div>
+      <h2>High Medieval</h2>
+      <p class="era-copy">Castles, cavalry, and the church's arms trade reshape the battlefield. Standardized arming swords and mounted knights push shields and helmets toward full coverage of the body they're meant to protect.</p>
+    </div>
+    <div class="specimens">
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 6 Q36 10 36 20 Q36 34 24 42 Q12 34 12 20 Q12 10 24 6 Z"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 10 — NORMANDY</div>
+        <h3>Kite Shield</h3>
+        <p>Long enough to guard a rider's unarmored leg, curved to deflect a lance's point rather than absorb it square on — the shield that appears again and again along the Bayeux Tapestry's embroidered battle lines.</p>
+        <div class="specimen-mat">LAMINATED WOOD / RAWHIDE / IRON BOSS</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 4 L28 10 L27 34 L24 40 L21 34 L20 10 Z"/><line x1="14" y1="10" x2="34" y2="10"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 11 — EUROPE, GENERAL</div>
+        <h3>Knightly Arming Sword</h3>
+        <p>A cruciform hilt over a double-edged blade, balanced for a single hand so the other stays free for a shield or a rein — the default sidearm of European cavalry for nearly three centuries.</p>
+        <div class="specimen-mat">STEEL · 90–100CM OVERALL</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 22 Q14 8 24 8 Q34 8 34 22 L34 34 L14 34 Z"/><line x1="14" y1="24" x2="34" y2="24"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 12 — CONTINENTAL</div>
+        <h3>Great Helm</h3>
+        <p>A flat-topped iron cylinder dropped over the head and a padded coif beneath it, with only a narrow slit to see and breathe through. Total protection, near-total blindness — knights raised the visor the moment the charge was over.</p>
+        <div class="specimen-mat">FORGED IRON PLATE</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="era" id="era-5" data-era="4">
+    <div class="era-head">
+      <div class="era-range">V · 1300 – 1600 AD</div>
+      <h2>Late Medieval &amp; Renaissance</h2>
+      <p class="era-copy">Blast furnaces and water-hammers let armorers work steel at a scale earlier smiths couldn't reach. Plate replaces mail, polearms replace the shield wall, and gunpowder arrives at the very end to make all of it, slowly, obsolete.</p>
+    </div>
+    <div class="specimens">
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 3 L27 8 L26 32 L24 42 L22 32 L21 8 Z"/><line x1="16" y1="9" x2="32" y2="9"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 13 — GERMAN LANDS</div>
+        <h3>Longsword</h3>
+        <p>A grip long enough for both hands, taught through dedicated fencing manuals rather than passed down as folk technique — swordsmanship becomes something written down, diagrammed, and sold as instruction.</p>
+        <div class="specimen-mat">STEEL · 100–130CM OVERALL</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 8 L32 8 L30 22 L28 40 L20 40 L18 22 Z"/><line x1="16" y1="16" x2="32" y2="16"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 14 — MILAN</div>
+        <h3>Gothic Plate Harness</h3>
+        <p>Fluted, articulated steel covering the wearer head to foot, shaped by hammer over hot forms rather than beaten flat — a full harness could take a workshop of specialists months and cost more than the knight's horse.</p>
+        <div class="specimen-mat">HARDENED STEEL PLATE</div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="24" y1="4" x2="24" y2="44"/><path d="M24 4 L32 10 L24 16 L18 10 Z"/><line x1="24" y1="16" x2="30" y2="20"/></svg>
+        </div>
+        <div class="specimen-tag">SPECIMEN 15 — SWISS CONFEDERACY</div>
+        <h3>Halberd</h3>
+        <p>An axe blade, a spike, and a hook fused to one shaft, wielded by Swiss and Landsknecht infantry who could fell a mounted knight, pull him from the saddle, and finish him without ever drawing a sidearm.</p>
+        <div class="specimen-mat">STEEL HEAD / ASH SHAFT · 200CM</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="foot">
+  <h2>Every edge here was tempered by hand, by someone whose name the record rarely kept.</h2>
+  <p>The Long Forge is a chronicle, not a marketplace — a way of holding twenty-five centuries of metalwork up to the light in the order it was made.</p>
+  <div class="foot-meta">
+    <div><strong>SPAN</strong>900 BC – 1600 AD</div>
+    <div><strong>SPECIMENS</strong>15 catalogued</div>
+    <div><strong>ERAS</strong>5 chronicled</div>
+  </div>
+</footer>
+
+<script>
+  // ---- ember particle field ----
+  const canvas = document.getElementById('ember-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    canvas.width = document.getElementById('hero').offsetWidth;
+    canvas.height = document.getElementById('hero').offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function spawnParticle(){
+    return {
+      x: Math.random() * canvas.width,
+      y: canvas.height + 10,
+      r: Math.random() * 2 + 0.6,
+      speed: Math.random() * 0.6 + 0.25,
+      drift: (Math.random() - 0.5) * 0.4,
+      life: 1,
+      decay: Math.random() * 0.0025 + 0.0012,
+      hue: Math.random() > 0.5 ? '196,68,14' : '232,93,42'
+    };
+  }
+  for(let i=0;i<70;i++){
+    const p = spawnParticle();
+    p.y = Math.random() * canvas.height;
+    particles.push(p);
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.y -= p.speed;
+      p.x += p.drift;
+      p.life -= p.decay;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${p.hue}, ${Math.max(p.life,0)*0.85})`;
+      ctx.fill();
+    });
+    particles = particles.filter(p=>p.life > 0 && p.y > -10);
+    while(particles.length < 70){ particles.push(spawnParticle()); }
+    if(!reduceMotion){ requestAnimationFrame(tick); }
+  }
+  if(!reduceMotion){ requestAnimationFrame(tick); } else { tick(); }
+
+  // ---- spine ticks ----
+  const spine = document.getElementById('spine');
+  const eras = document.querySelectorAll('.era');
+  eras.forEach((era, i)=>{
+    const tick = document.createElement('div');
+    tick.className = 'spine-tick';
+    tick.dataset.idx = i;
+    spine.appendChild(tick);
+  });
+
+  function positionTicks(){
+    document.querySelectorAll('.spine-tick').forEach((tick, i)=>{
+      const era = eras[i];
+      const rect = era.getBoundingClientRect();
+      const top = rect.top + window.scrollY + 40;
+      tick.style.top = top + 'px';
+    });
+  }
+  positionTicks();
+  window.addEventListener('resize', positionTicks);
+
+  function updateSpineFill(){
+    const doc = document.documentElement;
+    const scrollTop = window.scrollY;
+    const scrollHeight = doc.scrollHeight - window.innerHeight;
+    const pct = Math.min(100, (scrollTop / scrollHeight) * 100);
+    document.getElementById('spine-fill').style.height = pct + '%';
+  }
+
+  // ---- reveal on scroll ----
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const head = entry.target.querySelector('.era-head');
+        const specs = entry.target.querySelector('.specimens');
+        if(head) head.classList.add('in');
+        if(specs) specs.classList.add('in');
+        const idx = entry.target.dataset.era;
+        const tick = document.querySelector(`.spine-tick[data-idx="${idx}"]`);
+        if(tick) tick.classList.add('active');
+      }
+    });
+  }, {threshold:0.25});
+  eras.forEach(era=>io.observe(era));
+
+  window.addEventListener('scroll', updateSpineFill);
+  updateSpineFill();
+</script>
+
+</body>
+</html>
