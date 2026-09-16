@@ -6,116 +6,7 @@
 <title>The Long Forge — Interactive Chronicle of Arms</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="styles.css">
- <style>
-  /* Side Drawer & Overlay Styles */
-  .drawer-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .drawer-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .side-drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 420px;
-    max-width: 100%;
-    height: 100vh;
-    background: #0f1115;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
-    z-index: 1001;
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    color: #e2e8f0;
-    box-sizing: border-box;
-    padding: 24px;
-  }
-  .side-drawer.active {
-    transform: translateX(0);
-  }
-  .drawer-close {
-    align-self: flex-end;
-    background: transparent;
-    border: none;
-    color: #94a3b8;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s;
-  }
-  .drawer-close:hover {
-    color: #ffffff;
-  }
-  .drawer-body {
-    margin-top: 10px;
-  }
-  .drawer-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding-bottom: 16px;
-  }
-  .drawer-icon {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-  }
-  .drawer-icon svg {
-    width: 100%;
-    height: 100%;
-  }
-  .drawer-title-area h3 {
-    margin: 4px 0 0 0;
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-  }
-  .drawer-desc {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #cbd5e1;
-    margin-bottom: 24px;
-  }
-  .drawer-specs-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 8px;
-    padding: 16px;
-  }
-  .drawer-specs-box .spec-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-  }
-  .drawer-specs-box .spec-mat {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.1);
-  }
-  .specimen {
-    cursor: pointer;
-  }
- </style>
+<link rel="stylesheet" href="styles_2.css">
 </head>
 <body>
 
@@ -1494,6 +1385,6 @@
   </div>
 </aside>
 
-<script src="script.js"></script>
+<script src="script_2.js"></script>
 </body>
 </html>
